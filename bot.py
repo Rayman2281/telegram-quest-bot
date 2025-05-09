@@ -5,6 +5,17 @@ from aiogram.utils import executor
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+import threading
+import http.server
+import socketserver
+
+def keep_alive():
+    PORT = 8080
+    Handler = http.server.SimpleHTTPRequestHandler
+    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+        httpd.serve_forever()
+
+threading.Thread(target=keep_alive).start()
 
 API_TOKEN = "7577193986:AAEpL6NKWGh4d4tqnoRDo5y1tzz765_1JRc"
 
